@@ -66,3 +66,22 @@ The main things to remember:
 - `#include "file.h"` with double quotes when the header file is part of the project.
 - `#include <file.h>` when it's a 3rd party lib.
   - sometimes the `.h` is omitted (like in `#include <iostream>`)
+
+### Functions accept default values (but they must be declared in the header)
+
+In C++ we can have default values for function arguments, so the callers can
+omit that argument. But there's a detail to keep in mind: The definition of
+the default value MUST be in the header file, not in the "implementation file".
+Reason: the call site (the file including the header) must be aware that
+calling the function omitting that argument is a valid thing.
+
+A good way to remember:
+
+**A default argument is part of the function's interface**, it's not part
+of the implementation. So it belongs in the header next to the rest of the
+interface.
+
+In fact, the default value is used at compile time. The compiler replaces
+`hello()` with `hello("World")` at compile time and the implementation code
+doesn't even know that a "default value" was used. It just get the value it
+needs to do its job.
