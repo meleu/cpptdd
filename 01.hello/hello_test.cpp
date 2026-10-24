@@ -1,8 +1,4 @@
-#include <string>
-
-std::string hello() { return "Hello, World"; }
-
-// test code
+#include "hello.h"
 
 #include <doctest/doctest.h>
 
