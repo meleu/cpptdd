@@ -1,1 +1,1 @@
-include $(HOME)/.local/include/doctest.mk
+include ../doctest.mk
