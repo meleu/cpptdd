@@ -5,6 +5,7 @@ enum class Language {
   English,
   French,
   Spanish,
+  Portuguese,
 };
 
 std::string hello(std::string name = "World",
@@ -21,6 +22,9 @@ std::string hello(std::string name, Language language) {
   case Language::Spanish:
     prefix = "Hola, ";
     break;
+  case Language::Portuguese:
+    prefix = "Olá, ";
+    break;
   default:
     prefix = "Hello, ";
   }
@@ -36,6 +40,10 @@ std::string hello(std::string name, Language language) {
 #include <doctest/doctest.h>
 
 TEST_CASE("hello()") {
+
+  SUBCASE("say 'Olá' in Portuguese") {
+    CHECK(hello("João", Language::Portuguese) == "Olá, João");
+  }
 
   SUBCASE("say 'Hola' in Spanish") {
     CHECK(hello("Juan", Language::Spanish) == "Hola, Juan");
