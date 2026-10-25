@@ -67,6 +67,30 @@ The main things to remember:
 - `#include <file.h>` when it's a 3rd party lib.
   - sometimes the `.h` is omitted (like in `#include <iostream>`)
 
+### Headers files need a header guard
+
+In order to prevent header files being included more than once, it's important
+to add "header guards" to them.
+
+Classic way:
+
+```cpp
+#ifndef MY_HEADER_H
+#define MY_HEADER_H
+
+// declarations here...
+
+#endif
+```
+
+Non-standard-but-commonly-used way:
+
+```cpp
+#pragma once
+
+// declarations here...
+```
+
 ### Functions accept default values (but they must be declared in the header)
 
 In C++ we can have default values for function arguments, so the callers can
