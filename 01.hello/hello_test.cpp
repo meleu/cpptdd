@@ -4,6 +4,7 @@
 enum class Language {
   English,
   French,
+  Spanish,
 };
 
 std::string hello(std::string name = "World",
@@ -15,6 +16,8 @@ std::string hello(std::string name, Language language) {
 
   if (language == Language::French) {
     prefix = "Bonjour, ";
+  } else if (language == Language::Spanish) {
+    prefix = "Hola, ";
   }
 
   return prefix + name;
@@ -29,13 +32,17 @@ std::string hello(std::string name, Language language) {
 
 TEST_CASE("hello()") {
 
-  SUBCASE("say hello to people") { CHECK(hello("John") == "Hello, John"); }
-
-  SUBCASE("say 'Hello, World' when no name is given") {
-    CHECK(hello() == "Hello, World");
+  SUBCASE("say 'Hola' in Spanish") {
+    CHECK(hello("Juan", Language::Spanish) == "Hola, Juan");
   }
 
   SUBCASE("say 'Bonjour' in French") {
     CHECK(hello("Jean", Language::French) == "Bonjour, Jean");
+  }
+
+  SUBCASE("say hello to people") { CHECK(hello("John") == "Hello, John"); }
+
+  SUBCASE("say 'Hello, World' when no name is given") {
+    CHECK(hello() == "Hello, World");
   }
 }
