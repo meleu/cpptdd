@@ -1,34 +1,4 @@
-// hello.h
-#include <string>
-
-enum class Language {
-  English,
-  French,
-  Spanish,
-  Portuguese,
-};
-
-std::string hello(std::string name = "World",
-                  Language language = Language::English);
-
-// hello.cpp
-#include <map>
-
-std::string hello(std::string name, Language language) {
-  static const std::map<Language, std::string> prefixes{
-      {Language::English, "Hello, "},
-      {Language::French, "Bonjour, "},
-      {Language::Spanish, "Hola, "},
-      {Language::Portuguese, "Olá, "},
-  };
-
-  return prefixes.at(language) + name;
-}
-
-// ----------------------------------------------------------------------
-// tests
-// ----------------------------------------------------------------------
-// #include "hello.h"
+#include "hello.h"
 
 #include <doctest/doctest.h>
 
