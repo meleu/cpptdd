@@ -12,12 +12,17 @@ std::string hello(std::string name = "World",
 
 // hello.cpp
 std::string hello(std::string name, Language language) {
-  std::string prefix = "Hello, ";
+  std::string prefix{};
 
-  if (language == Language::French) {
+  switch (language) {
+  case Language::French:
     prefix = "Bonjour, ";
-  } else if (language == Language::Spanish) {
+    break;
+  case Language::Spanish:
     prefix = "Hola, ";
+    break;
+  default:
+    prefix = "Hello, ";
   }
 
   return prefix + name;
