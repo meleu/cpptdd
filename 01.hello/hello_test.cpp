@@ -1,14 +1,21 @@
 // hello.h
-// ----------------------------------------------------------------------
 #include <string>
 
-std::string hello(std::string name = "World");
+std::string hello(std::string name = "World", std::string language = "English");
 
 // hello.cpp
-// ----------------------------------------------------------------------
-std::string hello(std::string name) { return "Hello, " + name; }
+std::string hello(std::string name, std::string language) {
+  std::string prefix = "Hello, ";
 
-// hello_test.cpp
+  if (language == "French") {
+    prefix = "Bonjour, ";
+  }
+
+  return prefix + name;
+}
+
+// ----------------------------------------------------------------------
+// tests
 // ----------------------------------------------------------------------
 // #include "hello.h"
 
@@ -20,5 +27,9 @@ TEST_CASE("hello()") {
 
   SUBCASE("say 'Hello, World' when no name is given") {
     CHECK(hello() == "Hello, World");
+  }
+
+  SUBCASE("say 'Bonjour' in French") {
+    CHECK(hello("Jean", "French") == "Bonjour, Jean");
   }
 }
