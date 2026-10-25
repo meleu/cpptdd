@@ -109,3 +109,20 @@ In fact, the default value is used at compile time. The compiler replaces
 `hello()` with `hello("World")` at compile time and the implementation code
 doesn't even know that a "default value" was used. It just get the value it
 needs to do its job.
+
+### Scoped enumerations (enum class)
+
+We can use a scoped enumeration to add a semantic value to the languages:
+
+```cpp
+enum class Language {
+  English,
+  French,
+  Spanish,
+  Portuguese
+};
+
+// Now we can use, for example, `Language::French`.
+```
+
+See more in scoped enumerations in <https://www.learncpp.com/cpp-tutorial/scoped-enumerations-enum-classes/>.
