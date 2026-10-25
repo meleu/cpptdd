@@ -126,3 +126,22 @@ enum class Language {
 ```
 
 See more in scoped enumerations in <https://www.learncpp.com/cpp-tutorial/scoped-enumerations-enum-classes/>.
+
+### Using maps (aka Lookup Tables)
+
+Example of use of a lookup table (aka map, dictionary or associative array):
+
+```cpp
+#include <map>
+
+std::string hello(std::string name, Language language) {
+  static const std::map<Language, std::string> prefixes{
+      {Language::English, "Hello, "},
+      {Language::French, "Bonjour, "},
+      {Language::Spanish, "Hola, "},
+      {Language::Portuguese, "Olá, "},
+  };
+
+  return prefixes.at(language) + name;
+}
+```
