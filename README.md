@@ -145,3 +145,69 @@ std::string hello(std::string name, Language language) {
   return prefixes.at(language) + name;
 }
 ```
+
+## Bonus: test code and production code in the same file
+
+doctest allows `TEST_CASE`s to live in the same file as the code they test
+(see [hello_single_file/](01.hello/hello_single_file/)).
+
+Since the file has its own `main()`, we tell doctest not to provide one, and
+run the tests from our `main()`:
+
+```cpp
+#define DOCTEST_CONFIG_IMPLEMENT // "I'll write main() myself"
+#include <doctest/doctest.h>
+#include <optional>
+
+static std::optional<int> run_tests(int argc, char **argv);
+
+int main(int argc, char **argv) {
+  if (auto exit_code = run_tests(argc, argv)) {
+    return *exit_code;
+  }
+
+  std::cout << hello() << '\n';
+}
+
+// Returns an exit code if the program should stop
+// (tests failed, or a flag like --exit/--help was given).
+static std::optional<int> run_tests(int argc, char **argv) {
+  doctest::Context context;
+  context.applyCommandLine(argc, argv);
+
+  int result = context.run();
+  if (result != 0 || context.shouldExit()) {
+    return result;
+  }
+  return std::nullopt;
+}
+
+TEST_CASE("hello()") {
+  CHECK(hello() == "Hello, World");
+}
+```
+
+The same binary runs tests and/or the program, depending on the flags:
+
+- `./hello`: run the tests, then the program
+- `./hello --exit`: run only the tests
+- `./hello --no-run`: run only the program
+
+For the release build, compile with `-DDOCTEST_CONFIG_DISABLE`: all the test
+code is stripped out at compile time (`context.run()` becomes a no-op).
+
+```bash
+# with tests
+clang++ -std=c++23 hello.cpp -o hello_test
+
+# release
+clang++ -std=c++23 -O2 -DDOCTEST_CONFIG_DISABLE hello.cpp -o hello
+```
+
+In the example, the `Makefile` wraps this as `make test` and `make build`.
+
+**NOTE**:
+
+- `static` gives `run_tests` *internal linkage* (visible only in this file).
+  With `-O2` the compiler inlines it into `main()` and removes it, so moving
+  the code out of `main()` costs zero bytes in the final binary.
