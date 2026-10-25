@@ -20,6 +20,10 @@ TEST_CASE("hello()") {
   SUBCASE("say 'Hello, World' when no name is given") {
     CHECK(hello() == "Hello, World");
   }
+
+  SUBCASE("say 'Hello, World' when name is an empty string") {
+    CHECK(hello("") == "Hello, World");
+  }
 }
 
 TEST_CASE("languageFromLocale()") {

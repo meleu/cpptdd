@@ -8,6 +8,9 @@ std::string hello(std::string name, Language language) {
       {Language::Spanish, "Hola, "},
       {Language::Portuguese, "Olá, "},
   };
+  if (name.empty()) {
+    name = "World";
+  }
 
   return prefixes.at(language) + name;
 }

@@ -9,7 +9,6 @@ enum class Language {
   Portuguese,
 };
 
-std::string hello(std::string name = "World",
-                  Language language = Language::English);
+std::string hello(std::string name = "", Language language = Language::English);
 
 Language languageFromLocale(std::string locale);
