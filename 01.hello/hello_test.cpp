@@ -12,24 +12,17 @@ std::string hello(std::string name = "World",
                   Language language = Language::English);
 
 // hello.cpp
+#include <map>
+
 std::string hello(std::string name, Language language) {
-  std::string prefix{};
+  static const std::map<Language, std::string> prefixes{
+      {Language::English, "Hello, "},
+      {Language::French, "Bonjour, "},
+      {Language::Spanish, "Hola, "},
+      {Language::Portuguese, "Olá, "},
+  };
 
-  switch (language) {
-  case Language::French:
-    prefix = "Bonjour, ";
-    break;
-  case Language::Spanish:
-    prefix = "Hola, ";
-    break;
-  case Language::Portuguese:
-    prefix = "Olá, ";
-    break;
-  default:
-    prefix = "Hello, ";
-  }
-
-  return prefix + name;
+  return prefixes.at(language) + name;
 }
 
 // ----------------------------------------------------------------------
