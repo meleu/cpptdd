@@ -1,13 +1,19 @@
 // hello.h
 #include <string>
 
-std::string hello(std::string name = "World", std::string language = "English");
+enum class Language {
+  English,
+  French,
+};
+
+std::string hello(std::string name = "World",
+                  Language language = Language::English);
 
 // hello.cpp
-std::string hello(std::string name, std::string language) {
+std::string hello(std::string name, Language language) {
   std::string prefix = "Hello, ";
 
-  if (language == "French") {
+  if (language == Language::French) {
     prefix = "Bonjour, ";
   }
 
@@ -30,6 +36,6 @@ TEST_CASE("hello()") {
   }
 
   SUBCASE("say 'Bonjour' in French") {
-    CHECK(hello("Jean", "French") == "Bonjour, Jean");
+    CHECK(hello("Jean", Language::French) == "Bonjour, Jean");
   }
 }
