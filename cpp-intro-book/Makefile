@@ -1,0 +1,1 @@
+include ../doctest-single.mk
