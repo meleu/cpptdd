@@ -199,3 +199,27 @@ clang++ -std=c++23 -O2 -DDOCTEST_CONFIG_DISABLE hello.cpp -o hello
 ```
 
 In the example, the `Makefile` wraps this as `make test` and `make build`.
+
+## 03. Iteration a text banner
+
+### Get the length of a string
+
+```cpp
+// std::string my_string{"meleu"};
+my_string.length();
+// => 5
+```
+
+### Find a char in a string
+
+```cpp
+// Returns the index of the first occurrence of the given character
+// in my_string, starting from the given position. If not found,
+// returns npos.
+my_string.find(character, position);
+```
+
+### What is `std::string::npos`?
+
+It means "no position". It's a way to C++ use to say "the position you
+want was not found".
