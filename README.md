@@ -64,7 +64,7 @@ and [here](https://www.learncpp.com/cpp-tutorial/header-guards/).
 The main things to remember:
 
 - `#include "file.h"` with double quotes when the header file is part of the project.
-- `#include <file.h>` when it's a 3rd party lib.
+- `#include <file.h>` when it's a lib we didn't write (the preprocessor searches for it in the "include directories").
   - sometimes the `.h` is omitted (like in `#include <iostream>`)
 
 ### Headers files need a header guard
