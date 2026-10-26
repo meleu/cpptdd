@@ -1,1 +1,1 @@
-include ../doctest.mk
+include ../doctest-single.mk
