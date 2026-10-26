@@ -1,12 +1,10 @@
 #include <string>
 
-std::string dec2bin(int number, int length = 4) {
-  std::string binary{};
-  for (unsigned i = (1 << (length - 1)); i > 0; i = i / 2) {
-    binary += (number & i) ? "1" : "0";
+std::string dec2bin(unsigned int number) {
+  if (number < 2) {
+    return std::to_string(number);
   }
-
-  return binary;
+  return dec2bin(number / 2) + std::to_string(number % 2);
 }
 
 #include <doctest/doctest.h>
@@ -14,4 +12,6 @@ std::string dec2bin(int number, int length = 4) {
 TEST_CASE("dec2bin()") {
   CHECK(dec2bin(8) == "1000");
   CHECK(dec2bin(9) == "1001");
+  CHECK(dec2bin(1) == "1");
+  CHECK(dec2bin(0) == "0");
 }
