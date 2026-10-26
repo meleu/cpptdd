@@ -146,42 +146,36 @@ std::string hello(std::string name, Language language) {
 }
 ```
 
-## Bonus: test code and production code in the same file
+## 02. Decimal to Binary Converter
+
+### Test code and production code in the same file
 
 doctest allows `TEST_CASE`s to live in the same file as the code they test
-(see [hello_single_file/](01.hello/hello_single_file/)).
+(see [02.number-converter/](./02.number-converter/)).
 
 Since the file has its own `main()`, we tell doctest not to provide one, and
 run the tests from our `main()`:
 
 ```cpp
-#define DOCTEST_CONFIG_IMPLEMENT // "I'll write main() myself"
+#define DOCTEST_CONFIG_IMPLEMENT
 #include <doctest/doctest.h>
-#include <optional>
-
-static std::optional<int> run_tests(int argc, char **argv);
 
 int main(int argc, char **argv) {
-  if (auto exit_code = run_tests(argc, argv)) {
-    return *exit_code;
-  }
-
-  std::cout << hello() << '\n';
-}
-
-// Returns an exit code if the program should stop
-// (tests failed, or a flag like --exit/--help was given).
-static std::optional<int> run_tests(int argc, char **argv) {
-  doctest::Context context;
-  context.applyCommandLine(argc, argv);
-
-  int result = context.run();
-  if (result != 0 || context.shouldExit()) {
+  // doctest boilerplate
+  // -------------------------------
+  doctest::Context ctx;
+  ctx.applyCommandLine(argc, argv);
+  int result = ctx.run();
+  if (result != 0 || ctx.shouldExit()) {
     return result;
   }
-  return std::nullopt;
+
+  // production code...
+  // -------------------------------
 }
 
+  // test code...
+  // -------------------------------
 TEST_CASE("hello()") {
   CHECK(hello() == "Hello, World");
 }
@@ -205,9 +199,3 @@ clang++ -std=c++23 -O2 -DDOCTEST_CONFIG_DISABLE hello.cpp -o hello
 ```
 
 In the example, the `Makefile` wraps this as `make test` and `make build`.
-
-**NOTE**:
-
-- `static` gives `run_tests` *internal linkage* (visible only in this file).
-  With `-O2` the compiler inlines it into `main()` and removes it, so moving
-  the code out of `main()` costs zero bytes in the final binary.
