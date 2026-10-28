@@ -200,7 +200,7 @@ clang++ -std=c++23 -O2 -DDOCTEST_CONFIG_DISABLE hello.cpp -o hello
 
 In the example, the `Makefile` wraps this as `make test` and `make build`.
 
-## 03. Iteration a text banner
+## 03. Iteration (text banner)
 
 ### Get the length of a string
 
@@ -223,3 +223,28 @@ my_string.find(character, position);
 
 It means "no position". It's a way to C++ use to say "the position you
 want was not found".
+
+## 04. Arrays
+
+### Vector
+
+The most generic way to deal with arrays in C++ is by using `std::vector`.
+
+We can define the type as `std::vector<int>` but also can use Class
+Template Argument Deduction (aka CTAD, a fancy name for "type inference").
+
+```cpp
+// explicitly declare the type between <angle-brackets>
+int sum(std::vector<int> numbers) { /* ... */ }
+
+// using CTAD (Class Template Argument Deduction)
+std::vector numbers{1, 2, 3, 4, 5}
+```
+
+### Range-based for loops
+
+```cpp
+for (const auto number : numbers) {
+  // do something with `number`
+}
+```
